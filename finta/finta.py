@@ -202,7 +202,7 @@ class TA:
         A buy/sell signals are generated when the TRIX crosses above/below the signal line and is also above/below zero.
 
         The TRIX was developed by Jack K. Hutson, publisher of Technical Analysis of Stocks & Commodities magazine,
-        and was introduced in Volume 1, Number 5 of that magazine. 
+        and was introduced in Volume 1, Number 5 of that magazine.
         """
 
         data = ohlc[column]
@@ -245,7 +245,7 @@ class TA:
         smoothing_period: int = 12,
         column: str = "close",
     ) -> Series:
-        """ Vidya (variable index dynamic average) indicator is a modification of the traditional Exponential Moving Average (EMA) indicator.
+        """Vidya (variable index dynamic average) indicator is a modification of the traditional Exponential Moving Average (EMA) indicator.
         The main difference between EMA and Vidya is in the way the smoothing factor F is calculated.
         In EMA the smoothing factor is a constant value F=2/(period+1);
         in Vidya the smoothing factor is variable and depends on bar-to-bar price movements."""
@@ -255,7 +255,7 @@ class TA:
     @classmethod
     def ER(cls, ohlc: DataFrame, period: int = 10, column: str = "close") -> Series:
         """The Kaufman Efficiency indicator is an oscillator indicator that oscillates between +100 and -100, where zero is the center point.
-         +100 is upward forex trending market and -100 is downwards trending markets."""
+        +100 is upward forex trending market and -100 is downwards trending markets."""
 
         change = ohlc[column].diff(period).abs()
         volatility = ohlc[column].diff().abs().rolling(window=period).sum()
@@ -403,7 +403,9 @@ class TA:
                 evwma.append(evwma[-1] * x[1] + y[1])
 
         return pd.Series(
-            evwma[1:], index=ohlcv.index, name="{0} period EVWMA.".format(period),
+            evwma[1:],
+            index=ohlcv.index,
+            name="{0} period EVWMA.".format(period),
         )
 
     @classmethod
@@ -547,7 +549,7 @@ class TA:
         column: str = "close",
         adjust: bool = True,
     ) -> DataFrame:
-        """"Volume-Weighted MACD" is an indicator that shows how a volume-weighted moving average can be used to calculate moving average convergence/divergence (MACD).
+        """ "Volume-Weighted MACD" is an indicator that shows how a volume-weighted moving average can be used to calculate moving average convergence/divergence (MACD).
         This technique was first used by Buff Dormeier, CMT, and has been written about since at least 2002."""
 
         vp = ohlcv["volume"] * ohlcv[column]
@@ -634,7 +636,7 @@ class TA:
         atr_period: int = 26,
         column: str = "close",
     ) -> Series:
-        """The Volatility-Based-Momentum (VBM) indicator, The calculation for a volatility based momentum (VBM) 
+        """The Volatility-Based-Momentum (VBM) indicator, The calculation for a volatility based momentum (VBM)
         indicator is very similar to ROC, but divides by the security’s historical volatility instead.
         The average true range indicator (ATR) is used to compute historical volatility.
         VBM(n,v) = (Close — Close n periods ago) / ATR(v periods)
@@ -719,8 +721,8 @@ class TA:
         cls, ohlc: DataFrame, column: str = "close", adjust: bool = True
     ) -> Series:
         """
-        The Dynamic Momentum Index is a variable term RSI. The RSI term varies from 3 to 30. The variable 
-        time period makes the RSI more responsive to short-term moves. The more volatile the price is, 
+        The Dynamic Momentum Index is a variable term RSI. The RSI term varies from 3 to 30. The variable
+        time period makes the RSI more responsive to short-term moves. The more volatile the price is,
         the shorter the time period is. It is interpreted in the same way as the RSI, but provides signals earlier.
         Readings below 30 are considered oversold, and levels over 70 are considered overbought. The indicator
         oscillates between 0 and 100.
@@ -828,11 +830,11 @@ class TA:
     @classmethod
     def PSAR(cls, ohlc: DataFrame, iaf: int = 0.02, maxaf: int = 0.2) -> DataFrame:
         """
-        The parabolic SAR indicator, developed by J. Wells Wilder, is used by traders to determine trend direction and potential reversals in price. 
-        The indicator uses a trailing stop and reverse method called "SAR," or stop and reverse, to identify suitable exit and entry points. 
+        The parabolic SAR indicator, developed by J. Wells Wilder, is used by traders to determine trend direction and potential reversals in price.
+        The indicator uses a trailing stop and reverse method called "SAR," or stop and reverse, to identify suitable exit and entry points.
         Traders also refer to the indicator as the parabolic stop and reverse, parabolic SAR, or PSAR.
         https://www.investopedia.com/terms/p/parabolicindicator.asp
-        https://virtualizedfrog.wordpress.com/2014/12/09/parabolic-sar-implementation-in-python/        
+        https://virtualizedfrog.wordpress.com/2014/12/09/parabolic-sar-implementation-in-python/
         """
 
         length = len(ohlc)
@@ -907,13 +909,13 @@ class TA:
         std_multiplier: float = 2,
     ) -> DataFrame:
         """
-         Developed by John Bollinger, Bollinger Bands® are volatility bands placed above and below a moving average.
-         Volatility is based on the standard deviation, which changes as volatility increases and decreases.
-         The bands automatically widen when volatility increases and narrow when volatility decreases.
+        Developed by John Bollinger, Bollinger Bands® are volatility bands placed above and below a moving average.
+        Volatility is based on the standard deviation, which changes as volatility increases and decreases.
+        The bands automatically widen when volatility increases and narrow when volatility decreases.
 
-         This method allows input of some other form of moving average like EMA or KAMA around which BBAND will be formed.
-         Pass desired moving average as <MA> argument. For example BBANDS(MA=TA.KAMA(20)).
-         """
+        This method allows input of some other form of moving average like EMA or KAMA around which BBAND will be formed.
+        Pass desired moving average as <MA> argument. For example BBANDS(MA=TA.KAMA(20)).
+        """
 
         std = ohlc[column].rolling(window=period).std()
 
@@ -1163,10 +1165,10 @@ class TA:
     @classmethod
     def STOCH(cls, ohlc: DataFrame, period: int = 14) -> Series:
         """Stochastic oscillator %K
-         The stochastic oscillator is a momentum indicator comparing the closing price of a security
-         to the range of its prices over a certain period of time.
-         The sensitivity of the oscillator to market movements is reducible by adjusting that time
-         period or by taking a moving average of the result.
+        The stochastic oscillator is a momentum indicator comparing the closing price of a security
+        to the range of its prices over a certain period of time.
+        The sensitivity of the oscillator to market movements is reducible by adjusting that time
+        period or by taking a moving average of the result.
         """
 
         highest_high = ohlc["high"].rolling(center=False, window=period).max()
@@ -1209,10 +1211,10 @@ class TA:
     @classmethod
     def WILLIAMS(cls, ohlc: DataFrame, period: int = 14) -> Series:
         """Williams %R, or just %R, is a technical analysis oscillator showing the current closing price in relation to the high and low
-         of the past N days (for a given N). It was developed by a publisher and promoter of trading materials, Larry Williams.
-         Its purpose is to tell whether a stock or commodity market is trading near the high or the low, or somewhere in between,
-         of its recent trading range.
-         The oscillator is on a negative scale, from −100 (lowest) up to 0 (highest).
+        of the past N days (for a given N). It was developed by a publisher and promoter of trading materials, Larry Williams.
+        Its purpose is to tell whether a stock or commodity market is trading near the high or the low, or somewhere in between,
+        of its recent trading range.
+        The oscillator is on a negative scale, from −100 (lowest) up to 0 (highest).
         """
 
         highest_high = ohlc["high"].rolling(center=False, window=period).max()
@@ -1248,10 +1250,10 @@ class TA:
 
     @classmethod
     def AO(cls, ohlc: DataFrame, slow_period: int = 34, fast_period: int = 5) -> Series:
-        """'EMA', 
+        """'EMA',
         Awesome Oscillator is an indicator used to measure market momentum. AO calculates the difference of a 34 Period and 5 Period Simple Moving Averages.
         The Simple Moving Averages that are used are not calculated using closing price but rather each bar's midpoints.
-        AO is generally used to affirm trends or to anticipate possible reversals. """
+        AO is generally used to affirm trends or to anticipate possible reversals."""
 
         slow = pd.Series(
             ((ohlc["high"] + ohlc["low"]) / 2).rolling(window=slow_period).mean(),
@@ -1288,12 +1290,12 @@ class TA:
     @classmethod
     def VORTEX(cls, ohlc: DataFrame, period: int = 14) -> DataFrame:
         """The Vortex indicator plots two oscillating lines, one to identify positive trend movement and the other
-         to identify negative price movement.
-         Indicator construction revolves around the highs and lows of the last two days or periods.
-         The distance from the current high to the prior low designates positive trend movement while the
-         distance between the current low and the prior high designates negative trend movement.
-         Strongly positive or negative trend movements will show a longer length between the two numbers while
-         weaker positive or negative trend movement will show a shorter length."""
+        to identify negative price movement.
+        Indicator construction revolves around the highs and lows of the last two days or periods.
+        The distance from the current high to the prior low designates positive trend movement while the
+        distance between the current low and the prior high designates negative trend movement.
+        Strongly positive or negative trend movements will show a longer length between the two numbers while
+        weaker positive or negative trend movement will show a shorter length."""
 
         VMP = pd.Series((ohlc["high"] - ohlc["low"].shift()).abs())
         VMM = pd.Series((ohlc["low"] - ohlc["high"].shift()).abs())
@@ -1393,9 +1395,9 @@ class TA:
     @inputvalidator(input_="ohlcv")
     def CHAIKIN(cls, ohlcv: DataFrame, adjust: bool = True) -> Series:
         """Chaikin Oscillator, named after its creator, Marc Chaikin, the Chaikin oscillator is an oscillator that measures the accumulation/distribution
-         line of the moving average convergence divergence (MACD). The Chaikin oscillator is calculated by subtracting a 10-day exponential moving average (EMA)
-         of the accumulation/distribution line from a three-day EMA of the accumulation/distribution line, and highlights the momentum implied by the
-         accumulation/distribution line."""
+        line of the moving average convergence divergence (MACD). The Chaikin oscillator is calculated by subtracting a 10-day exponential moving average (EMA)
+        of the accumulation/distribution line from a three-day EMA of the accumulation/distribution line, and highlights the momentum implied by the
+        accumulation/distribution line."""
 
         return pd.Series(
             cls.ADL(ohlcv).ewm(span=3, min_periods=2, adjust=adjust).mean()
@@ -1535,7 +1537,7 @@ class TA:
         adjust: bool = True,
     ) -> Series:
         """Elder's Force Index is an indicator that uses price and volume to assess the power
-         behind a move or identify possible turning points."""
+        behind a move or identify possible turning points."""
 
         # https://tradingsim.com/blog/elders-force-index/
         fi = pd.Series(ohlcv[column].diff() * ohlcv["volume"])
@@ -2038,7 +2040,8 @@ class TA:
         cutoff = pd.Series(factor * vinter * ohlc["close"], name="cutoff")
         price_change = pd.Series(typical.diff(), name="pc")  # price change
         mav = pd.Series(
-            ohlc["volume"].rolling(center=False, window=period).mean(), name="mav",
+            ohlc["volume"].rolling(center=False, window=period).mean(),
+            name="mav",
         )
 
         _va = pd.concat([ohlc["volume"], mav.shift()], axis=1)
@@ -2127,9 +2130,9 @@ class TA:
         %K (MACD) = %KV (MACD, 10);
         %D (MACD) = %DV (MACD, 10);
         Schaff = 100 x (MACD – %K (MACD)) / (%D (MACD) – %K (MACD)).
-        In case the STC indicator is decreasing, this indicates that the trend cycle 
+        In case the STC indicator is decreasing, this indicates that the trend cycle
         is falling, while the price tends to stabilize or follow the cycle to the downside.
-        In case the STC indicator is increasing, this indicates that the trend cycle 
+        In case the STC indicator is increasing, this indicates that the trend cycle
         is up, while the price tends to stabilize or follow the cycle to the upside.
         """
         EMA_fast = pd.Series(
@@ -2152,6 +2155,50 @@ class TA:
         return pd.Series(
             100 * (MACD - (STOK * MACD)) / ((STOD * MACD) - (STOK * MACD)),
             name="{0} period STC.".format(period),
+        )
+
+    @classmethod
+    def KDJ(
+        cls, ohlc: DataFrame, stochk_period: int = 14, stochd_period: int = 3
+    ) -> Series:
+        """
+        KDJ indicator is an extension of Stochastic oscillator. KDJ has been developed from Stochastic Oscillator and
+        includes one more ‘J’ line along with the traditional ‘D’ and ‘K’ lines.
+
+        The formula compares the current close to the low, high and range of a set period and then creates two lines,
+        %K and %D. %K is the faster line, %D is simply a moving average of %K and provides a signal line. The KDJ
+        adds a third line, the %J, for a total of three; %K%D%J, KDJ. The %J line is nothing more than the difference
+        between the other two lines, very similar to MACD. The big difference between %J and MACD is one,
+        it isn’t presented as a histogram and two, the two figures are weighted giving more emphasis on the shorter
+        term %K line. This creates a line that moves very slowly and has the ability to move outside the range of the
+        typical stochastic indicator. Stochastic ranges between 0 and 100, KDJ can move outside this range and that
+        movement is one of the signals it can give.
+
+        It works a lot like regular stochastic but because it is so slow it is a bit of a lagging indicator. The most
+        common signals it gives is based on where %J is in the range. If it is between 20 and 80 the market is
+        neutral, if it is above 80 it is bullish/overbought and if it is below 20 it is bearish/oversold. If it is
+        below or above 0 or 100 it is very bearish or very bullish, but also very-oversold and very-overbought,
+        so you have to be careful. These lines are used for crossovers in either direction but best used in line with
+        the the trend.
+
+        This is how the %J line is calculated:
+
+        %J = (3 * %D) - ) - (2 * %K)
+
+        https://github.com/Abhay64/KDJ-Indicator
+        """
+        k = cls.STOCH(ohlc, stochk_period)
+        d = cls.STOCHD(ohlc, stochd_period)
+        j = [0]
+
+        for x in range(0, len(d)):
+            calc_j = (3 * d[x]) - (2 * k[x])
+            j.append(calc_j)
+
+        return pd.Series(
+            j[1:],
+            index=ohlc.index,
+            name="{0} period KDJ.".format(stochd_period),
         )
 
 
